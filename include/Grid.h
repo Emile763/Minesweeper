@@ -1,5 +1,5 @@
 #pragma once
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include "Window.h"
 #include <vector>
 #include <ctime>
@@ -42,7 +42,6 @@ private:
 	sf::Font m_font;
 	sf::CircleShape m_flag;
 
-	sf::Mouse m_mouse;
 	sf::Vector2i m_mouseRPos;
 
 	bool m_Lose;

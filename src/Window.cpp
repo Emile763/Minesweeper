@@ -1,20 +1,16 @@
 #include "Window.h"
 
-
-
-Window::Window(const sf::Vector2u& size, const std::string title)
+Window::Window(const sf::Vector2u &size, const std::string title)
 {
 	Setup(size, title);
 }
-
 
 Window::~Window()
 {
 	Destroy();
 }
 
-
-void Window::Setup(const sf::Vector2u& size, const std::string title)
+void Window::Setup(const sf::Vector2u &size, const std::string title)
 {
 	m_size = size;
 	m_title = title;
@@ -26,21 +22,19 @@ void Window::Setup(const sf::Vector2u& size, const std::string title)
 void Window::Create()
 {
 
-
-	auto style = m_fullscreen ? sf::Style::Fullscreen : sf::Style::Default;
-	m_window.create(sf::VideoMode(m_size.x, m_size.y, 32), m_title, style);
-
+	auto style = m_fullscreen ? sf::State::Fullscreen : sf::State::Windowed;
+	m_window.create(sf::VideoMode({m_size.x, m_size.y}, 32), m_title, style);
 }
 
 void Window::Update()
 {
-	sf::Event event;
-	while (m_window.pollEvent(event))
+	while (const std::optional event = m_window.pollEvent())
 	{
-		if (event.type == sf::Event::Closed)
+		if (event->is<sf::Event::Closed>())
 			m_isDone = true;
-		else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F11)
-			ToggleFullscreen();
+		else if (const auto *keyPressed = event->getIf<sf::Event::KeyPressed>())
+			if (keyPressed->code == sf::Keyboard::Key::F11)
+				ToggleFullscreen();
 	}
 }
 
@@ -56,12 +50,12 @@ bool Window::isDone()
 	return m_isDone;
 }
 
-void Window::BeginDraw(const sf::Color& color)
+void Window::BeginDraw(const sf::Color &color)
 {
 	m_window.clear(color);
 }
 
-void Window::Draw(const sf::Drawable& drawable)
+void Window::Draw(const sf::Drawable &drawable)
 {
 	m_window.draw(drawable);
 }
@@ -71,16 +65,13 @@ void Window::EndDraw()
 	m_window.display();
 }
 
-
-
-
 void Window::Destroy()
 {
-	
+
 	m_window.close();
 }
 
-sf::RenderWindow* Window::getWindow()
+sf::RenderWindow *Window::getWindow()
 {
 	return &m_window;
 }

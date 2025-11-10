@@ -2,7 +2,7 @@
 
 
 
-Grid::Grid(const sf::Vector2u& windSize)
+Grid::Grid(const sf::Vector2u& windSize) : m_nbr(m_font)
 {
 	m_gridSize.x = int(windSize.x / m_size);
 	m_gridSize.y = int(windSize.y / m_size);
@@ -11,11 +11,10 @@ Grid::Grid(const sf::Vector2u& windSize)
 	m_rectangle.setFillColor(sf::Color(100, 100, 100));
 
 	
-	if (!m_font.loadFromFile("arial.ttf"))
+	if (!m_font.openFromFile("font/NotoSans-Regular.ttf"))
 	{
-
+		std::cerr << "Font not found" << std::endl;
 	}
-	m_nbr.setFont(m_font);
 	m_nbr.setCharacterSize(m_size - 1);
 	m_nbr.setFillColor(sf::Color::White);
 
@@ -248,11 +247,11 @@ void Grid::Update(sf::Vector2i pos)
 void Grid::Discover(Window& window)
 {
 	
-	m_mouseRPos = m_mouse.getPosition(*window.getWindow());
+	m_mouseRPos = sf::Mouse::getPosition(*window.getWindow());
 	m_mouseRPos.x /= m_size;
 	m_mouseRPos.y /= m_size;
 	
-	if (m_mouse.isButtonPressed(sf::Mouse::Button::Left))
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 	{
 		if (m_mouseRPos.x >= 0 && m_mouseRPos.x < m_gridSize.x && m_mouseRPos.y >= 0 && m_mouseRPos.y < m_gridSize.y && m_grid[m_mouseRPos.y][m_mouseRPos.x].hide && !m_grid[m_mouseRPos.y][m_mouseRPos.x].flag)
 		{
@@ -276,7 +275,8 @@ void Grid::Discover(Window& window)
 
 sf::Vector2i Grid::setFlag(Window& Flag, const sf::Vector2i& pos)
 {
-	if (m_mouse.isButtonPressed(sf::Mouse::Button::Right) && pos != m_mouseRPos)
+	(void)Flag;
+	if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Right) && pos != m_mouseRPos)
 	{
 		m_grid[m_mouseRPos.y][m_mouseRPos.x].flag = !m_grid[m_mouseRPos.y][m_mouseRPos.x].flag;
 		return m_mouseRPos;

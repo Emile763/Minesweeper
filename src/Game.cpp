@@ -33,17 +33,17 @@ void Game::Update()
 	{
 		m_grid.Reveal();
 		
-		if (!m_mouse.isButtonPressed(sf::Mouse::Button::Left))
+		if (!sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 			m_pressed = false;
 
-		if (m_mouse.isButtonPressed(sf::Mouse::Button::Left) && !m_pressed)
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && !m_pressed)
 		{	
 			
 			m_grid.Reset();
 			
 		}
 			
-		if (m_mouse.isButtonPressed(sf::Mouse::Button::Left))
+		if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
 			m_pressed = true;
 
 	}

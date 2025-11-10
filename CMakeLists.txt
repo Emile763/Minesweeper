@@ -13,13 +13,14 @@ set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 add_subdirectory(third-party/SFML)
 
-add_executable("SolarMirorApp" 
+add_executable("MinesweeperApp" 
     src/main.cpp
     src/Game.cpp
     src/Grid.cpp
     src/Window.cpp
     )
-target_include_directories("SolarMirorApp" PRIVATE include)
-target_link_libraries("SolarMirorApp" SFML::Graphics SFML::Window SFML::System)
+file(COPY ./font DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+target_include_directories("MinesweeperApp" PRIVATE include)
+target_link_libraries("MinesweeperApp" SFML::Graphics SFML::Window SFML::System)
 
 

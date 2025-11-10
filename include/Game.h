@@ -18,7 +18,6 @@ private:
 	Window m_window;
 	Grid m_grid;
 
-	sf::Mouse m_mouse;
 	sf::Vector2i m_MPos;
 	bool m_pressed;
 
