@@ -11,7 +11,7 @@ cd build
 cmake ..
 cmake --build .
 # To launch
-./RenderApp
+./MinesweeperApp
 ```
 
 # How To Use
